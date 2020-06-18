@@ -5,6 +5,11 @@ SCRIPT_ROOT=$(dirname "${BASH_SOURCE[0]}")/..
 
 pushd $SCRIPT_ROOT
 
+[ -d "stable" ] && {
+	echo "charts not found";
+	exit 0;
+}
+
 # helm repo index stable/ --url https://ci-charts.storage.googleapis.com/stable/
 
 gsutil rsync -d -r stable gs://ci-charts/stable
