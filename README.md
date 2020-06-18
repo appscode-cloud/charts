@@ -1,5 +1,4 @@
-# AppsCode Charts Repository
-Kubernetes Applications by AppsCode
+# CI Charts Repository
 
 ## Configure Helm
 
