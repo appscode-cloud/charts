@@ -1,11 +1,11 @@
 #!/bin/bash
-set -xeou pipefail
+set -eou pipefail
 
 SCRIPT_ROOT=$(dirname "${BASH_SOURCE[0]}")/..
 
 pushd $SCRIPT_ROOT
 
-[ -d "stable" ] && {
+[ -d "stable" ] || {
 	echo "charts not found";
 	exit 0;
 }
