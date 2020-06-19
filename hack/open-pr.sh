@@ -1,7 +1,10 @@
 #!/bin/bash
 set -xeou pipefail
 
-SCRIPT_ROOT=$(dirname "${BASH_SOURCE[0]}")/..
+SCRIPT_ROOT=$(realpath $(dirname "${BASH_SOURCE[0]}")/..)
+SCRIPT_NAME=$(basename "${BASH_SOURCE[0]}")/..
+
+echo "SCRIPT_ROOT", $SCRIPT_ROOT
 
 RELEASE=${RELEASE:-}
 RELEASE_TRACKER=${RELEASE_TRACKER:-}
