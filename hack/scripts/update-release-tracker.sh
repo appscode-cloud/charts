@@ -28,29 +28,18 @@ parse_url() {
     export RELEASE_TRACKER_PR=${PARTS[4]}
 }
 
-REPO_DIR=stable
-[ -d "$REPO_DIR" ] || {
-    echo "charts not found"
-    exit 0
-}
-
-# helm repo index $REPO_DIR/ --url https://ci-charts.storage.googleapis.com/$REPO_DIR/
-
-# sync charts
-gsutil rsync -d -r $REPO_DIR gs://ci-charts/$REPO_DIR
-gsutil acl ch -u AllUsers:R -r gs://ci-charts/$REPO_DIR
-
-# invalidate cache
-# sleep 10
-# gcloud compute url-maps invalidate-cdn-cache cdn \
-#   --project appscode-domains \
-#   --host charts.appscode.com \
-#   --path "/$REPO_DIR/index.yaml"
-
+REPOSITORY=
+TAG=
 RELEASE_TRACKER=
 
 while IFS=$': \t' read -r -u9 marker v; do
     case $marker in
+        Repository)
+            export REPOSITORY=$v
+            ;;
+        Tag)
+            export TAG=$v
+            ;;
         Release-tracker)
             export RELEASE_TRACKER=$v
             ;;
@@ -60,12 +49,12 @@ while IFS=$': \t' read -r -u9 marker v; do
     esac
 done 9< <(git show -s --format=%b)
 
-[ ! -z $RELEASE_TRACKER ] || {
+if [ -z $RELEASE_TRACKER ] || [ -z $REPOSITORY ] || [ -z $TAG ]; then
     echo "Release-tracker url not found."
     exit 0
-}
+fi
 
 parse_url $RELEASE_TRACKER
 api_url="repos/${RELEASE_TRACKER_OWNER}/${RELEASE_TRACKER_REPO}/issues/${RELEASE_TRACKER_PR}/comments"
-msg="/chart-published $RELEASE"
+msg="/chart-merged github.com/${REPOSITORY} ${TAG}"
 hub api "$api_url" -f body="$msg"

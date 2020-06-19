@@ -2,12 +2,12 @@ name: Blank
 
 on:
   pull_request:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
   build:
-    name: Build
+    name: Build # This job is needed to satisfy kodiak
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2

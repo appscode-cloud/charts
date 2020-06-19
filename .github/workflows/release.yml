@@ -1,13 +1,16 @@
-name: CI
+name: Release
 
 on:
   push:
-    branches:
-      - master
+    tags:
+      - '*.*'
 
 jobs:
+
   build:
+    name: Build
     runs-on: ubuntu-latest
+    steps:
 
     steps:
       - uses: actions/checkout@v1
@@ -32,6 +35,5 @@ jobs:
           curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
 
       - name: Publish charts
-        if: contains(github.event.pull_request.labels.*.name , 'autorelease') == false
         run: |
           ./hack/scripts/publish.sh
