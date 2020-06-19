@@ -118,7 +118,7 @@ while true; do
     cd $SCRIPT_ROOT
     git add --all
     # generate commit command
-    ct_cmd="git commit -a -s -m \"Publish $pr_branch charts\""
+    ct_cmd="git commit -a -s -m \"Publish ${GITHUB_REPOSITORY}@${GIT_TAG} charts\""
     ct_cmd="$ct_cmd --message \"ProductLine: $PRODUCT_LINE\""
     if [ ! -z "$RELEASE" ]; then
         ct_cmd="$ct_cmd --message \"Release: $RELEASE\""
@@ -136,7 +136,8 @@ while true; do
     #  open pr
     hub pull-request \
         --labels automerge \
-        --message "$(git show -s --format=%B)" || true
+        --message "Publish $pr_branch charts" \
+        --message "$(git show -s --format=%b)" || true
     # if Release-tracker: found, report back.
     if [ ! -z "$RELEASE_TRACKER" ]; then
         parse_url $RELEASE_TRACKER
