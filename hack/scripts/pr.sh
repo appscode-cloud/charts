@@ -78,15 +78,15 @@ done < <(git tag -l --format='%(body)' $GIT_TAG)
 
 pr_branch=${GITHUB_REPOSITORY}@${GIT_TAG}
 if [ ! -z "$PRODUCT_LINE" ] && [ ! -z "$RELEASE" ]; then
-    pr_branch=${GITHUB_REPOSITORY}@${RELEASE}
+    pr_branch=${PRODUCT_LINE}@${RELEASE}
 fi
 
 while true; do
 	cd $SCRIPT_ROOT
 	# remove all unstagged changes
 	git add --all
-	git stash
-	git stash drop
+	git stash || true
+	git stash drop || true
 	# fetch latest remote
 	git fetch origin --prune
     git gc
