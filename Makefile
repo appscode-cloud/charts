@@ -84,6 +84,9 @@ fmt: $(BUILD_DIRS)
 	        ./hack/fmt.sh $(SRC_DIRS)                           \
 	    "
 
+$(BUILD_DIRS):
+	@mkdir -p $@
+
 .PHONY: add-license
 add-license:
 	@echo "Adding license header"

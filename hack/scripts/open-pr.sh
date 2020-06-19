@@ -134,15 +134,16 @@ while true; do
         continue
     }
     #  open pr
-    pr_cmd=$(cat <<EOF
+    pr_cmd=$(
+        cat <<EOF
 hub pull-request \
     --message "Publish $pr_branch charts" \
     --message "$(git show -s --format=%b)"
 EOF
-)
+    )
     # if no Release-tracker: auto merge.
     if [ -z "$RELEASE_TRACKER" ]; then
-      pr_cmd="$pr_cmd --labels automerge"
+        pr_cmd="$pr_cmd --labels automerge"
     fi
     eval "$pr_cmd"
     # if Release-tracker: found, report back.
