@@ -116,7 +116,6 @@ while true; do
     find . -path ./$CHARTS_DIR -prune -o -name '*.tgz' -exec mv {} $SCRIPT_ROOT/$REPO_DIR/{} \;
     # open pr
     cd $SCRIPT_ROOT
-    git checkout -b $pr_branch
     git add --all
     # generate commit command
     ct_cmd="git commit -a -s -m \"Publish $pr_branch charts\""
