@@ -18,7 +18,12 @@ fi
 pushd $1
 
 find $CHARTS_DIR -maxdepth 1 -mindepth 1 -type d -exec helm package {} -d {} \;
-helm repo index --merge $SCRIPT_ROOT/stable/index.yaml --url $REPO_URL $CHARTS_DIR
+mkdir -p $SCRIPT_ROOT/stable
+if [ -f $SCRIPT_ROOT/stable/index.yaml ]; then
+	helm repo index --merge $SCRIPT_ROOT/stable/index.yaml --url $REPO_URL $CHARTS_DIR
+else
+	helm repo index --url $REPO_URL $CHARTS_DIR
+fi
 mv $CHARTS_DIR/index.yaml $SCRIPT_ROOT/stable/index.yaml
 cd $CHARTS_DIR
 find . -maxdepth 1 -mindepth 1 -type d -exec mkdir -p $SCRIPT_ROOT/stable/{} \;
