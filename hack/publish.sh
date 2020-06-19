@@ -1,25 +1,28 @@
 #!/bin/bash
 set -eou pipefail
 
-SCRIPT_ROOT=$(dirname "${BASH_SOURCE[0]}")/..
+SCRIPT_ROOT=$(realpath $(dirname "${BASH_SOURCE[0]}")/..)
+SCRIPT_NAME=$(basename "${BASH_SOURCE[0]}")/..
+
+REPO_DIR=stable
 
 pushd $SCRIPT_ROOT
 
-[ -d "stable" ] || {
+[ -d "$REPO_DIR" ] || {
 	echo "charts not found";
 	exit 0;
 }
 
-# helm repo index stable/ --url https://ci-charts.storage.googleapis.com/stable/
+# helm repo index $REPO_DIR/ --url https://ci-charts.storage.googleapis.com/$REPO_DIR/
 
-gsutil rsync -d -r stable gs://ci-charts/stable
-gsutil acl ch -u AllUsers:R -r gs://ci-charts/stable
+gsutil rsync -d -r $REPO_DIR gs://ci-charts/$REPO_DIR
+gsutil acl ch -u AllUsers:R -r gs://ci-charts/$REPO_DIR
 
 # sleep 10
 
 # gcloud compute url-maps invalidate-cdn-cache cdn \
 #   --project appscode-domains \
 #   --host charts.appscode.com \
-#   --path "/stable/index.yaml"
+#   --path "/$REPO_DIR/index.yaml"
 
 popd
