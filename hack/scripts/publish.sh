@@ -62,12 +62,6 @@ gsutil acl ch -u AllUsers:R -r gs://ci-charts/$REPO_DIR
 #   --host charts.appscode.com \
 #   --path "/$REPO_DIR/index.yaml"
 
-
-
-
-
-
-
 # RELEASE_TRACKER=
 
 # while IFS=$': \t' read -r -u9 marker v; do

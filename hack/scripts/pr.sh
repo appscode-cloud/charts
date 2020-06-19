@@ -63,17 +63,17 @@ PRODUCT_LINE=${PRODUCT_LINE:-}
 RELEASE=${RELEASE:-}
 RELEASE_TRACKER=${RELEASE_TRACKER:-}
 while IFS=$': \t' read -r marker v; do
-  case $marker in
-    ProductLine)
-      PRODUCT_LINE=$v
-      ;;
-    Release)
-      RELEASE=$v
-      ;;
-    Release-tracker)
-      RELEASE_TRACKER=$v
-      ;;
-  esac
+    case $marker in
+        ProductLine)
+            PRODUCT_LINE=$v
+            ;;
+        Release)
+            RELEASE=$v
+            ;;
+        Release-tracker)
+            RELEASE_TRACKER=$v
+            ;;
+    esac
 done < <(git tag -l --format='%(body)' $GIT_TAG)
 
 pr_branch=${GITHUB_REPOSITORY}@${GIT_TAG}
@@ -82,23 +82,23 @@ if [ ! -z "$PRODUCT_LINE" ] && [ ! -z "$RELEASE" ]; then
 fi
 
 while true; do
-	cd $SCRIPT_ROOT
-	# remove all unstagged changes
-	git add --all
-	git stash || true
-	git stash drop || true
-	# fetch latest remote
-	git fetch origin --prune
+    cd $SCRIPT_ROOT
+    # remove all unstagged changes
+    git add --all
+    git stash || true
+    git stash drop || true
+    # fetch latest remote
+    git fetch origin --prune
     git gc
     # checkout pr branch
     if [ -z "$(git ls-remote --heads origin $pr_branch)" ]; then
-    	# remote branch does NOT exists
-    	git checkout master
-    	git branch -D $pr_branch || true
+        # remote branch does NOT exists
+        git checkout master
+        git branch -D $pr_branch || true
         git checkout -b $pr_branch
     else
-    	git checkout master
-    	git branch -D $pr_branch || true
+        git checkout master
+        git branch -D $pr_branch || true
         git checkout -b $pr_branch --track origin/$pr_branch
     fi
     # package charts
