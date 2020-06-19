@@ -1,0 +1,36 @@
+apiVersion: v1
+entries:
+  stash:
+  - apiVersion: v1
+    appVersion: v0.10.0-alpha.1
+    created: "2020-06-19T03:09:18.753298717Z"
+    description: Stash by AppsCode - Backup your Kubernetes Volumes
+    digest: d365a9caf69b343d09998461a963eaaac827f1c2d463858e151da2f8431e52c0
+    home: https://appscode.com/products/stash/
+    icon: https://cdn.appscode.com/images/products/stash/icons/android-icon-192x192.png
+    maintainers:
+    - email: support@appscode.com
+      name: appscode
+    name: stash
+    sources:
+    - https://github.com/stashed/stash
+    urls:
+    - https://ci-charts.storage.googleapis.com/stable/stash/stash-v0.10.0-alpha.1.tgz
+    version: v0.10.0-alpha.1
+  - apiVersion: v1
+    appVersion: v0.10.0-alpha.0
+    created: "2020-06-19T03:09:18.754859424Z"
+    description: Stash by AppsCode - Backup your Kubernetes Volumes
+    digest: d092e88c12252bb0852347bf6fd2616e2c61d13340edb10d6fb5abcd796065ae
+    home: https://appscode.com/products/stash/
+    icon: https://cdn.appscode.com/images/products/stash/icons/android-icon-192x192.png
+    maintainers:
+    - email: support@appscode.com
+      name: appscode
+    name: stash
+    sources:
+    - https://github.com/stashed/stash
+    urls:
+    - https://ci-charts.storage.googleapis.com/stable/stash-enterprise/stash-v0.10.0-alpha.0.tgz
+    version: v0.10.0-alpha.0
+generated: "2020-06-19T03:09:18.751630309Z"
