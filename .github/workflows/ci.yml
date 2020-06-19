@@ -34,4 +34,4 @@ jobs:
       - name: Publish charts
         if: contains(github.event.pull_request.labels.*.name , 'autorelease') == false
         run: |
-          ./hack/publish.sh
+          ./hack/scripts/publish.sh
