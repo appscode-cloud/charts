@@ -62,25 +62,31 @@ gsutil acl ch -u AllUsers:R -r gs://ci-charts/$REPO_DIR
 #   --host charts.appscode.com \
 #   --path "/$REPO_DIR/index.yaml"
 
-RELEASE_TRACKER=
 
-while IFS=$': \t' read -r -u9 marker v; do
-    case $marker in
-        Release-tracker)
-            export RELEASE_TRACKER=$v
-            ;;
-        Release)
-            export RELEASE=$v
-            ;;
-    esac
-done 9< <(git show -s --format=%b)
 
-[ ! -z $RELEASE_TRACKER ] || {
-    echo "Release-tracker url not found."
-    exit 0
-}
 
-parse_url $RELEASE_TRACKER
-api_url="repos/${RELEASE_TRACKER_OWNER}/${RELEASE_TRACKER_REPO}/issues/${RELEASE_TRACKER_PR}/comments"
-msg="/chart-published $RELEASE"
-hub api "$api_url" -f body="$msg"
+
+
+
+# RELEASE_TRACKER=
+
+# while IFS=$': \t' read -r -u9 marker v; do
+#     case $marker in
+#         Release-tracker)
+#             export RELEASE_TRACKER=$v
+#             ;;
+#         Release)
+#             export RELEASE=$v
+#             ;;
+#     esac
+# done 9< <(git show -s --format=%b)
+
+# [ ! -z $RELEASE_TRACKER ] || {
+#     echo "Release-tracker url not found."
+#     exit 0
+# }
+
+# parse_url $RELEASE_TRACKER
+# api_url="repos/${RELEASE_TRACKER_OWNER}/${RELEASE_TRACKER_REPO}/issues/${RELEASE_TRACKER_PR}/comments"
+# msg="/chart-published $RELEASE"
+# hub api "$api_url" -f body="$msg"
