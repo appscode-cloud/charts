@@ -1,10 +1,8 @@
 #!/bin/bash
-set -xeou pipefail
+set -eou pipefail
 
 SCRIPT_ROOT=$(realpath $(dirname "${BASH_SOURCE[0]}")/..)
 SCRIPT_NAME=$(basename "${BASH_SOURCE[0]}")/..
-
-echo "SCRIPT_ROOT", $SCRIPT_ROOT
 
 RELEASE=${RELEASE:-}
 RELEASE_TRACKER=${RELEASE_TRACKER:-}
@@ -12,11 +10,11 @@ GIT_TAG=${GITHUB_REF#'refs/tags/'}
 
 pushd $SCRIPT_ROOT
 
-pr_branch=${GITHUB_REPOSITORY}/${GITHUB_RUN_ID}
+pr_branch=${GITHUB_REPOSITORY}@${GIT_TAG}
 git checkout -b $pr_branch
 git add --all
 
-ct_cmd="git commit -a -s -m \"Publish ${GITHUB_REPOSITORY}@${GIT_TAG} charts\""
+ct_cmd="git commit -a -s -m \"Publish $pr_branch charts\""
 if [ ! -z  "$RELEASE" ]; then
 	ct_cmd="$ct_cmd --message \"Release: $RELEASE\""
 fi

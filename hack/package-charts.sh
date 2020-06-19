@@ -1,10 +1,8 @@
 #!/bin/bash
-set -xeou pipefail
+set -eou pipefail
 
 SCRIPT_ROOT=$(realpath $(dirname "${BASH_SOURCE[0]}")/..)
 SCRIPT_NAME=$(basename "${BASH_SOURCE[0]}")/..
-
-echo "SCRIPT_ROOT", $SCRIPT_ROOT
 
 REPO_DIR=stable
 REPO_URL=https://ci-charts.storage.googleapis.com/$REPO_DIR/
