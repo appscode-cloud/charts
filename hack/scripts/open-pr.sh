@@ -26,6 +26,6 @@ eval "$ct_cmd"
 git push -u origin HEAD -f
 hub pull-request \
   --labels automerge \
-  --message "$(git show -s --format=%B)"
+  --message "$(git show -s --format=%B)" || true
 
 popd
