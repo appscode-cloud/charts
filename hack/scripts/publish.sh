@@ -26,22 +26,22 @@ function cleanup() {
 }
 trap cleanup EXIT
 
-# # ref: https://gist.github.com/joshisa/297b0bc1ec0dcdda0d1625029711fa24
-# parse_url() {
-#     proto="$(echo $1 | grep :// | sed -e's,^\(.*://\).*,\1,g')"
-#     # remove the protocol
-#     url="$(echo ${1/$proto/})"
+# ref: https://gist.github.com/joshisa/297b0bc1ec0dcdda0d1625029711fa24
+parse_url() {
+    proto="$(echo $1 | grep :// | sed -e's,^\(.*://\).*,\1,g')"
+    # remove the protocol
+    url="$(echo ${1/$proto/})"
 
-#     IFS='/'                  # / is set as delimiter
-#     read -ra PARTS <<<"$url" # str is read into an array as tokens separated by IFS
-#     if [ ${PARTS[0]} != 'github.com' ] || [ ${#PARTS[@]} -ne 5 ]; then
-#         echo "failed to parse relase-tracker: $url"
-#         exit 1
-#     fi
-#     export RELEASE_TRACKER_OWNER=${PARTS[1]}
-#     export RELEASE_TRACKER_REPO=${PARTS[2]}
-#     export RELEASE_TRACKER_PR=${PARTS[4]}
-# }
+    IFS='/'                  # / is set as delimiter
+    read -ra PARTS <<<"$url" # str is read into an array as tokens separated by IFS
+    if [ ${PARTS[0]} != 'github.com' ] || [ ${#PARTS[@]} -ne 5 ]; then
+        echo "failed to parse relase-tracker: $url"
+        exit 1
+    fi
+    export RELEASE_TRACKER_OWNER=${PARTS[1]}
+    export RELEASE_TRACKER_REPO=${PARTS[2]}
+    export RELEASE_TRACKER_PR=${PARTS[4]}
+}
 
 REPO_DIR=stable
 [ -d "$REPO_DIR" ] || {
@@ -62,25 +62,30 @@ gsutil acl ch -u AllUsers:R -r gs://ci-charts/$REPO_DIR
 #   --host charts.appscode.com \
 #   --path "/$REPO_DIR/index.yaml"
 
-# RELEASE_TRACKER=
+PRODUCT_LINE=${PRODUCT_LINE:-}
+RELEASE=${RELEASE:-}
+RELEASE_TRACKER=${RELEASE_TRACKER:-}
 
-# while IFS=$': \t' read -r -u9 marker v; do
-#     case $marker in
-#         Release-tracker)
-#             export RELEASE_TRACKER=$v
-#             ;;
-#         Release)
-#             export RELEASE=$v
-#             ;;
-#     esac
-# done 9< <(git show -s --format=%b)
+while IFS=$': \r\t' read -r marker v; do
+    case $marker in
+        ProductLine)
+            PRODUCT_LINE=$(echo $v | tr -d '\r\t')
+            ;;
+        Release)
+            RELEASE=$(echo $v | tr -d '\r\t')
+            ;;
+        Release-tracker)
+            RELEASE_TRACKER=$(echo $v | tr -d '\r\t')
+            ;;
+    esac
+done 9< <(git show -s --format=%b)
 
-# [ ! -z $RELEASE_TRACKER ] || {
-#     echo "Release-tracker url not found."
-#     exit 0
-# }
+[ ! -z "$RELEASE_TRACKER" ] || {
+    echo "Release-tracker url not found."
+    exit 0
+}
 
-# parse_url $RELEASE_TRACKER
-# api_url="repos/${RELEASE_TRACKER_OWNER}/${RELEASE_TRACKER_REPO}/issues/${RELEASE_TRACKER_PR}/comments"
-# msg="/chart-published $RELEASE"
-# hub api "$api_url" -f body="$msg"
+parse_url $RELEASE_TRACKER
+api_url="repos/${RELEASE_TRACKER_OWNER}/${RELEASE_TRACKER_REPO}/issues/${RELEASE_TRACKER_PR}/comments"
+msg="/chart-published $RELEASE"
+hub api "$api_url" -f body="$msg"
