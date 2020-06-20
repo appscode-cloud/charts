@@ -62,16 +62,16 @@ GIT_TAG=${GITHUB_REF#'refs/tags/'}
 PRODUCT_LINE=${PRODUCT_LINE:-}
 RELEASE=${RELEASE:-}
 RELEASE_TRACKER=${RELEASE_TRACKER:-}
-while IFS=$': \t' read -r marker v; do
+while IFS=$': \r\t' read -r marker v; do
     case $marker in
         ProductLine)
-            PRODUCT_LINE=$v
+            PRODUCT_LINE=$(echo $v | tr -d '\r\t')
             ;;
         Release)
-            RELEASE=$v
+            RELEASE=$(echo $v | tr -d '\r\t')
             ;;
         Release-tracker)
-            RELEASE_TRACKER=$v
+            RELEASE_TRACKER=$(echo $v | tr -d '\r\t')
             ;;
     esac
 done < <(git tag -l --format='%(body)' $GIT_TAG)
@@ -145,7 +145,7 @@ EOF
     if [ -z "$RELEASE_TRACKER" ]; then
         pr_cmd="$pr_cmd --labels automerge"
     fi
-    eval "$pr_cmd"
+    eval "$pr_cmd" || true
     # if Release-tracker: found, report back.
     if [ ! -z "$RELEASE_TRACKER" ]; then
         parse_url $RELEASE_TRACKER
