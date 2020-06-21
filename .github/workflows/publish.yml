@@ -11,8 +11,6 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
-
-    steps:
       - uses: actions/checkout@v1
 
       - name: Install gcloud
@@ -35,5 +33,8 @@ jobs:
           curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
 
       - name: Publish charts
+        env:
+          GITHUB_USER: 1gtm
+          GITHUB_TOKEN: ${{ secrets.LGTM_GITHUB_TOKEN }}
         run: |
           ./hack/scripts/publish.sh

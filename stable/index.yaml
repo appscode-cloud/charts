@@ -1,0 +1,122 @@
+apiVersion: v1
+entries:
+  stash:
+  - apiVersion: v1
+    appVersion: v0.10.0-alpha.2
+    created: "2020-06-20T14:25:13.831857964Z"
+    description: Stash by AppsCode - Backup your Kubernetes Volumes
+    digest: 0fad93f40c785abbf88462d1ee7fb0ecd1c22c6b23b47f1b4057ad5a6120723f
+    home: https://appscode.com/products/stash/
+    icon: https://cdn.appscode.com/images/products/stash/icons/android-icon-192x192.png
+    maintainers:
+    - email: support@appscode.com
+      name: appscode
+    name: stash
+    sources:
+    - https://github.com/stashed/stash
+    urls:
+    - https://ci-charts.storage.googleapis.com/stable/stash/stash-v0.10.0-alpha.2.tgz
+    version: v0.10.0-alpha.2
+  - apiVersion: v1
+    appVersion: v0.10.0-alpha.0
+    created: "2020-06-20T14:25:13.833115749Z"
+    description: Stash by AppsCode - Backup your Kubernetes Volumes
+    digest: 293e05a47d99d3a76bf8cbc7432ba625307512b4850f8cb8e1b3348886a0ac74
+    home: https://appscode.com/products/stash/
+    icon: https://cdn.appscode.com/images/products/stash/icons/android-icon-192x192.png
+    maintainers:
+    - email: support@appscode.com
+      name: appscode
+    name: stash
+    sources:
+    - https://github.com/stashed/stash
+    urls:
+    - https://ci-charts.storage.googleapis.com/stable/stash-enterprise/stash-v0.10.0-alpha.0.tgz
+    version: v0.10.0-alpha.0
+  stash-postgres:
+  - apiVersion: v1
+    appVersion: "11.2"
+    created: "2020-06-20T13:56:03.067124817Z"
+    description: stash-postgres - PostgreSQL database backup and restore plugin for
+      Stash by AppsCode
+    digest: ad74db344891aec9c78ac74eded3ce13247c27d21a5340916ced1f2fd6a5e955
+    home: https://github.com/stashed/postgres
+    icon: https://cdn.appscode.com/images/icon/stash.png
+    maintainers:
+    - email: support@appscode.com
+      name: appscode
+    name: stash-postgres
+    sources:
+    - https://github.com/stashed/postgres
+    urls:
+    - https://ci-charts.storage.googleapis.com/stable/stash-postgres/stash-postgres-11.2.tgz
+    version: "11.2"
+  - apiVersion: v1
+    appVersion: "11.1"
+    created: "2020-06-20T13:56:35.159249276Z"
+    description: stash-postgres - PostgreSQL database backup and restore plugin for
+      Stash by AppsCode
+    digest: c18b5ef941fbdd652af0afd7937b0b60be077933e70517c5f6c05d8d7c239834
+    home: https://github.com/stashed/postgres
+    icon: https://cdn.appscode.com/images/icon/stash.png
+    maintainers:
+    - email: support@appscode.com
+      name: appscode
+    name: stash-postgres
+    sources:
+    - https://github.com/stashed/postgres
+    urls:
+    - https://ci-charts.storage.googleapis.com/stable/stash-postgres/stash-postgres-11.1.tgz
+    version: "11.1"
+  - apiVersion: v1
+    appVersion: "10.6"
+    created: "2020-06-20T13:56:30.747021484Z"
+    description: stash-postgres - PostgreSQL database backup and restore plugin for
+      Stash by AppsCode
+    digest: 8803ca228073dc8985c0ed312a36771b09a0240e92ac57920015fb8bea9d69d9
+    home: https://github.com/stashed/postgres
+    icon: https://cdn.appscode.com/images/icon/stash.png
+    maintainers:
+    - email: support@appscode.com
+      name: appscode
+    name: stash-postgres
+    sources:
+    - https://github.com/stashed/postgres
+    urls:
+    - https://ci-charts.storage.googleapis.com/stable/stash-postgres/stash-postgres-10.6.tgz
+    version: "10.6"
+  - apiVersion: v1
+    appVersion: "10.2"
+    created: "2020-06-20T13:56:21.959976926Z"
+    description: stash-postgres - PostgreSQL database backup and restore plugin for
+      Stash by AppsCode
+    digest: 73b544f83a5501ebb677459b44c3bb0e3f0f933fb221da2d7279549f925b42a9
+    home: https://github.com/stashed/postgres
+    icon: https://cdn.appscode.com/images/icon/stash.png
+    maintainers:
+    - email: support@appscode.com
+      name: appscode
+    name: stash-postgres
+    sources:
+    - https://github.com/stashed/postgres
+    urls:
+    - https://ci-charts.storage.googleapis.com/stable/stash-postgres/stash-postgres-10.2.tgz
+    version: "10.2"
+  - apiVersion: v1
+    appVersion: "9.6"
+    created: "2020-06-20T13:56:14.198006454Z"
+    description: stash-postgres - PostgreSQL database backup and restore plugin for
+      Stash by AppsCode
+    digest: d5c747970ed252d7015a8d786470017bc06348956143068f071a0c560a582cc2
+    home: https://github.com/stashed/postgres
+    icon: https://cdn.appscode.com/images/icon/stash.png
+    maintainers:
+    - email: support@appscode.com
+      name: appscode
+    name: stash-postgres
+    sources:
+    - https://github.com/stashed/postgres
+    urls:
+    - https://ci-charts.storage.googleapis.com/stable/stash-postgres/stash-postgres-9.6.tgz
+    version: "9.6"
+generated: "2020-06-20T14:25:13.830487562Z"

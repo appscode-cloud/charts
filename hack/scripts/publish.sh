@@ -16,7 +16,7 @@
 
 set -eou pipefail
 
-SCRIPT_ROOT=$(realpath $(dirname "${BASH_SOURCE[0]}")/..)
+SCRIPT_ROOT=$(realpath $(dirname "${BASH_SOURCE[0]}")/../..)
 SCRIPT_NAME=$(basename "${BASH_SOURCE[0]}")
 pushd $SCRIPT_ROOT
 
@@ -52,7 +52,7 @@ PRODUCT_LINE=${PRODUCT_LINE:-}
 RELEASE=${RELEASE:-}
 RELEASE_TRACKER=${RELEASE_TRACKER:-}
 
-while IFS=$': \r\t' read -r marker v; do
+while IFS=$': \r\t' read -r -u9 marker v; do
     case $marker in
         ProductLine)
             PRODUCT_LINE=$(echo $v | tr -d '\r\t')
